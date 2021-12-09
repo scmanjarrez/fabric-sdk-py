@@ -13,6 +13,7 @@
 # limitations under the License.
 #
 import aiogrpc
+import base64
 
 
 def create_grpc_channel(target, cert_file=None, client_key=None,
@@ -33,7 +34,7 @@ def create_grpc_channel(target, cert_file=None, client_key=None,
 
     if cert_file:
         if isinstance(cert_file, bytes):
-            root_cert = cert_file
+            root_cert = base64.b64decode(cert_file)
         else:
             with open(cert_file, 'rb') as f:
                 root_cert = f.read()
